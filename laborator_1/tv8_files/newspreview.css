@@ -1,0 +1,54 @@
+#news-preview-wrapper {
+	height: 32px;
+}
+
+#news-preview-background {
+	position: fixed;
+	height: 32px;
+	background-color: #a03065;
+	z-index: 999;
+	width: 100%;
+}
+
+#news-preview {
+	font-family: "unineue-regular";
+	font-size: 16px;
+	height: 32px;
+	line-height: 32px;
+	color: #fff;
+	white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#news-preview > a {
+	color: #fff;
+	text-decoration: underline;
+}
+
+#news-preview-wrapper > .container {
+	height: 32px;
+}
+
+#news-preview-wrapper.w-admin-bar > #news-preview-background {
+	top: 32px;
+}
+
+#news-preview > .label-link {
+	text-decoration: none;
+	margin-right: 10px;
+}
+
+#news-preview > .label-link:hover {
+	text-decoration: underline;
+}
+
+@media screen and (max-width: 782px) {
+	#news-preview-background {
+		position: relative;
+	}
+
+	#news-preview-wrapper.w-admin-bar > #news-preview-background {
+		top: 46px;
+	}
+}
