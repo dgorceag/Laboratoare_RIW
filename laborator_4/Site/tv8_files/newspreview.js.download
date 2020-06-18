@@ -1,0 +1,66 @@
+ window.onload = function() {
+
+ 	var URL = 'https://ru.tv8.md/wp-json/tv8/v1/mail-ru';
+ 	var LINK_TEXT = 'Подробнее на ru.tv8.md';
+ 	var TIMEOUT = 10 * 1000; // ms
+
+ 	function decodeHtml(html) {
+    var txt = document.createElement('textarea');
+    txt.innerHTML = html;
+    return txt.value;
+	}
+
+	function init() {
+		var wrapper = document.getElementById('news-preview-wrapper');
+
+		var bg = document.createElement('div');
+		bg.id = 'news-preview-background';
+
+		var innerWrapper = document.createElement('div');
+		innerWrapper.id = 'news-preview';
+		innerWrapper.classList.add('container');
+
+		bg.appendChild(innerWrapper);
+		wrapper.appendChild(bg);
+	}
+
+ 	function setContainerContent(item) {
+		var container = document.getElementById('news-preview');
+
+		var label = document.createElement('a');
+		var link = document.createElement('a');
+
+		label.innerText = decodeHtml(item.title);
+		label.setAttribute('href', item.url);
+		label.setAttribute('target', '_blank');
+		label.setAttribute('rel', 'nofollow noopener');
+		label.classList.add('label-link');
+
+		link.innerText = LINK_TEXT;
+		link.setAttribute('href', item.url);
+		link.setAttribute('target', '_blank');
+		link.setAttribute('rel', 'nofollow noopener');
+
+		container.innerHTML = '';
+
+		container.appendChild(label);
+		container.appendChild(link);
+	}
+
+	fetch(URL).then(function(res) {
+		res.json().then(function(json) {
+			var news = json.news;
+			var NEWS_COUNT = news.length;
+
+			init();
+
+			setContainerContent(news[0]);
+
+			var i = 1;
+			setInterval(function() {
+				setContainerContent(news[i % NEWS_COUNT]);
+				i++;
+			}, TIMEOUT);
+		})
+	})
+}
